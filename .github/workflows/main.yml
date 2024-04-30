@@ -21,3 +21,9 @@ jobs:
 
     - name: Deploy static site to S3 bucket
       run: aws s3 sync . s3://atanu-portfolio --delete
+
+    - name: Invalidate CloudFront Cache
+      run: aws cloudfront create-invalidation --distribution-id E32WL6OSVA6CVE --paths "/*"
+
+    - name: Wait for CloudFront to update
+      run: sleep 60
